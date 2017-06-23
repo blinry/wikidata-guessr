@@ -69,7 +69,7 @@
 
     // Reset Timer
     function resetTimer(){
-      count = 15;
+      count = 999999;
       counter = setInterval(timer, 1000);
     }
 
@@ -192,7 +192,7 @@
         points = 0;
 
       } else {
-        $('#roundEnd').html('<p>Your guess was<br/><strong><h1>'+distance+'</strong>km</h1> away from the actual location.<br/><div id="roundMap"></div><br/> You have scored<br/><h1>'+roundScore+' points</h1> this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
+        $('#roundEnd').html('<p>Your guess was<br/><strong><h1>'+distance+'</strong>km</h1> away from the actual location.<br/>'+window.locName+'<br/><div id="roundMap"></div><br/> You have scored<br/><h1>'+roundScore+' points</h1> this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
         $('#roundEnd').fadeIn();
       };
 
