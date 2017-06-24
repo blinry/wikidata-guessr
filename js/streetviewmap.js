@@ -31,6 +31,7 @@ SELECT ?item ?itemLabel ?lat ?lon ?photo WHERE {
                     img.src = place.photo.value;
                     window.locLL = place.lat.value + "," + place.lon.value;
                     window.locName = place.itemLabel.value;
+                    window.locID = place.item.value;
                 });
             }
         )
