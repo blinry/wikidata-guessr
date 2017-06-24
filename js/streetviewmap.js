@@ -1,21 +1,21 @@
 function svinitialize() {
     const query = `
-SELECT ?item ?itemLabel ?lat ?lon ?photo WHERE { 
-  { 
-    SELECT ?item ?photo ?lat ?lon 
-    WHERE { 
-      ?item wdt:P18 ?photo .  
-      ?item p:P625 ?statement . 
-      ?statement psv:P625 ?coords . 
-      ?coords wikibase:geoLatitude ?lat . 
-      ?coords wikibase:geoLongitude ?lon . 
-    } LIMIT 1000
-  } 
- SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de". } 
-} 
+    SELECT ?item ?itemLabel ?lat ?lon ?photo WHERE { 
+        { 
+            SELECT ?item ?photo ?lat ?lon 
+            WHERE { 
+                ?item wdt:P18 ?photo .  
+                    ?item p:P625 ?statement . 
+                    ?statement psv:P625 ?coords . 
+                    ?coords wikibase:geoLatitude ?lat . 
+                    ?coords wikibase:geoLongitude ?lon . 
+            } LIMIT 1000
+        } 
+        SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de". } 
+    } 
     `;
     const url = `https://query.wikidata.org/bigdata/namespace/wdq/sparql?format=json&query=${query}`;
-    window.fetch(url)
+        window.fetch(url)
         .then(
             function (response) {
                 if (response.status !== 200) {

@@ -1,4 +1,4 @@
- $(document).ready(function() {
+$(document).ready(function() {
     //
     // Setup
     //
@@ -13,7 +13,7 @@
     //
     //  Init maps
     //
-    
+
     svinitialize();
     mminitialize();
 
@@ -26,28 +26,28 @@
 
     // Timer
     function timer() {
-      count = count-1;
-      if (count <= 0) {
-        console.log('finished');
-        if (round < 5){
-          endRound();
-        } else if (round >= 5){
-          endGame();
-        };
-        clearInterval(counter);
-      }
-      $("#timer").html(count);
+        count = count-1;
+        if (count <= 0) {
+            console.log('finished');
+            if (round < 5){
+                endRound();
+            } else if (round >= 5){
+                endGame();
+            };
+            clearInterval(counter);
+        }
+        $("#timer").html(count);
     };
 
     // Guess Button
     $('#guessButton').click(function (){
-      doGuess();
-      rminitialize();
+        doGuess();
+        rminitialize();
     });
 
     // End of round continue button click
     $('#roundEnd').on('click', '.closeBtn', function () {
-      $('#roundEnd').fadeOut(500);
+        $('#roundEnd').fadeOut(500);
 
         if (round < 5){
 
@@ -74,13 +74,13 @@
             // Reset Timer
             resetTimer();
         } else if (round >= 5){
-          endGame();
+            endGame();
         };
     });
 
     // End of game 'play again' button click
     $('#endGame').on('click', '.playAgain', function () {
-      window.location.reload();
+        window.location.reload();
     });
 
     //
@@ -89,79 +89,79 @@
 
     // Reset Timer
     function resetTimer(){
-      count = 999999;
-      counter = setInterval(timer, 1000);
+        count = 999999;
+        counter = setInterval(timer, 1000);
     }
 
     // Calculate distance between points function
     function calcDistance(fromLat, fromLng, toLat, toLng) {
-      return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(fromLat, fromLng), new google.maps.LatLng(toLat, toLng));
+        return google.maps.geometry.spherical.computeDistanceBetween(new google.maps.LatLng(fromLat, fromLng), new google.maps.LatLng(toLat, toLng));
     };
 
     function doGuess(){
-      if (ranOut == false){
+        if (ranOut == false){
 
-        // Stop Counter
-        clearInterval(counter);
+            // Stop Counter
+            clearInterval(counter);
 
-        // Reset marker function
-        function resetMarker() {
-            //Reset marker
-            if (guessMarker != null) {
-                guessMarker.setMap(null);
-            }
-        };
+            // Reset marker function
+            function resetMarker() {
+                //Reset marker
+                if (guessMarker != null) {
+                    guessMarker.setMap(null);
+                }
+            };
 
-        // Explode latLng variables into separate variables for calcDistance function
-        locLatLongs = window.locLL.toString();
-        guessLatLongs = window.guessLatLng.toString();
+            // Explode latLng variables into separate variables for calcDistance function
+            locLatLongs = window.locLL.toString();
+            guessLatLongs = window.guessLatLng.toString();
 
-        // Make arrays and clean from (){} characters
-        window.locArray = locLatLongs.replace(/[\])}[{(]/g,'').split(',');
-        window.guessArray = guessLatLongs.replace(/[\])}[{(]/g,'').split(',');
+            // Make arrays and clean from (){} characters
+            window.locArray = locLatLongs.replace(/[\])}[{(]/g,'').split(',');
+            window.guessArray = guessLatLongs.replace(/[\])}[{(]/g,'').split(',');
 
-        // Calculate distance between points, and convert to kilometers
-        distance = Math.ceil(calcDistance(window.locArray[0], window.locArray[1], window.guessArray[0], window.guessArray[1]) / 1000);
+            // Calculate distance between points, and convert to kilometers
+            distance = Math.ceil(calcDistance(window.locArray[0], window.locArray[1], window.guessArray[0], window.guessArray[1]) / 1000);
 
-        // Calculate points awarded via guess proximity
-        function inRange(x, min, max) {
-            return (min <= x && x <= max);
-        };
+            // Calculate points awarded via guess proximity
+            function inRange(x, min, max) {
+                return (min <= x && x <= max);
+            };
 
-        // Real basic point thresholds depending on kilometer distances
-        if(inRange(distance, 1, 2)) {
-          points = 10000;
-        } else if(inRange(distance, 3, 10)) {
-          points = 7000;
-        } else if(inRange(distance, 11, 50)) {
-          points = 4000;
-        } else if(inRange(distance, 51, 200)) {
-          points = 3000;
-        } else if(inRange(distance, 201, 500)) {
-          points = 2000;
-        } else if(inRange(distance, 501, 800)) {
-          points = 1000;
-        } else if(inRange(distance, 801, 1300)) {
-          points = 500;
-        } else if(inRange(distance, 1301, 1600)) {
-          points = 400;
-        } else if(inRange(distance, 1601, 2300)) {
-          points = 300;
-        } else if(inRange(distance, 2301, 2800)) {
-          points = 200;
-        } else if(inRange(distance, 2801, 3200)) {
-          points = 100;
-        } else if(inRange(distance, 3200, 4500)) {
-          points = 50;
-        } else if(inRange(distance, 4501, 6000)) {
-          points = 25;
-        } else {
-          points = 0;
-        };
+            // Real basic point thresholds depending on kilometer distances
+            if(inRange(distance, 1, 2)) {
+                points = 10000;
+            } else if(inRange(distance, 3, 10)) {
+                points = 7000;
+            } else if(inRange(distance, 11, 50)) {
+                points = 4000;
+            } else if(inRange(distance, 51, 200)) {
+                points = 3000;
+            } else if(inRange(distance, 201, 500)) {
+                points = 2000;
+            } else if(inRange(distance, 501, 800)) {
+                points = 1000;
+            } else if(inRange(distance, 801, 1300)) {
+                points = 500;
+            } else if(inRange(distance, 1301, 1600)) {
+                points = 400;
+            } else if(inRange(distance, 1601, 2300)) {
+                points = 300;
+            } else if(inRange(distance, 2301, 2800)) {
+                points = 200;
+            } else if(inRange(distance, 2801, 3200)) {
+                points = 100;
+            } else if(inRange(distance, 3200, 4500)) {
+                points = 50;
+            } else if(inRange(distance, 4501, 6000)) {
+                points = 25;
+            } else {
+                points = 0;
+            };
 
-          roundScore = points;
+            roundScore = points;
 
-          /*
+            /*
         if (round < 3){
 
           endRound();
@@ -169,68 +169,68 @@
           endGame();
         };
         */
-          endRound();
+            endRound();
 
-      } else {
+        } else {
 
-        // They ran out
+            // They ran out
 
-      }
-      
-      timer();
-      window.guessLatLng = '';
+        }
+
+        timer();
+        window.guessLatLng = '';
 
     };
 
     function endRound(){
 
-      // If distance is undefined, that means they ran out of time and didn't click the guess button
-      if(typeof distance === 'undefined' || ranOut == true){
-        $('#roundEnd').html('<p>Dang nabbit! You took too long!.<br/> You didn\'t score any points this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
-        $('#roundEnd').fadeIn();
+        // If distance is undefined, that means they ran out of time and didn't click the guess button
+        if(typeof distance === 'undefined' || ranOut == true){
+            $('#roundEnd').html('<p>Dang nabbit! You took too long!.<br/> You didn\'t score any points this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
+            $('#roundEnd').fadeIn();
 
-        // Stop Counter
-        clearInterval(counter);
+            // Stop Counter
+            clearInterval(counter);
 
-        // Reset marker function
-        function resetMarker() {
-            //Reset marker
-            if (guessMarker != null) {
-                guessMarker.setMap(null);
-            }
+            // Reset marker function
+            function resetMarker() {
+                //Reset marker
+                if (guessMarker != null) {
+                    guessMarker.setMap(null);
+                }
+            };
+
+            window.guessLatLng = '';
+            ranOut = false;
+
+            points = 0;
+
+        } else {
+            $('#roundEnd').html('<p>Your guess was<br/><strong><h1>'+distance+'</strong>km</h1> away from the actual location,<br/><a href="'+window.locID+'">'+window.locName+'</a>.<br/><div id="roundMap"></div><br/> You have scored<br/><h1>'+roundScore+' points</h1> this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
+            $('#roundEnd').fadeIn();
         };
 
+        // Reset Params
         window.guessLatLng = '';
         ranOut = false;
-
-        points = 0;
-
-      } else {
-        $('#roundEnd').html('<p>Your guess was<br/><strong><h1>'+distance+'</strong>km</h1> away from the actual location,<br/><a href="'+window.locID+'">'+window.locName+'</a>.<br/><div id="roundMap"></div><br/> You have scored<br/><h1>'+roundScore+' points</h1> this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
-        $('#roundEnd').fadeIn();
-      };
-
-      // Reset Params
-      window.guessLatLng = '';
-      ranOut = false;
 
 
     };
 
     function endGame(){
-        
-      roundScore = points;
-      totalScore = totalScore + points;
 
-      $('#miniMap, #pano, #guessButton, #scoreBoard').hide();
-      $('#endGame').html('<h1>Congrats!</h1><h2>Your final score was:</h2><h1>'+totalScore+'!</h1><br/><button class="btn btn-large btn-success playAgain" type="button">Play Again?</button>');
-      $('#endGame').fadeIn(500);
+        roundScore = points;
+        totalScore = totalScore + points;
 
-      rminitialize();
+        $('#miniMap, #pano, #guessButton, #scoreBoard').hide();
+        $('#endGame').html('<h1>Congrats!</h1><h2>Your final score was:</h2><h1>'+totalScore+'!</h1><br/><button class="btn btn-large btn-success playAgain" type="button">Play Again?</button>');
+        $('#endGame').fadeIn(500);
 
-      // We're done with the game
-      window.finished = true;
+        rminitialize();
+
+        // We're done with the game
+        window.finished = true;
     }
 
 
-  });
+});
