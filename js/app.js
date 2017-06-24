@@ -49,13 +49,33 @@
     $('#roundEnd').on('click', '.closeBtn', function () {
       $('#roundEnd').fadeOut(500);
 
-      // Reload maps to refresh coords
-      svinitialize();
-      mminitialize();
-      rminitialize();
+        if (round < 5){
 
-      // Reset Timer
-      resetTimer();
+            round++
+            if(ranOut==true){
+                roundScore = 0;
+            } else {
+                roundScore = points;
+                totalScore = totalScore + points;
+            }
+
+            $('.round').html('Current Round: <b>'+round+'/5</b>');
+            $('.roundScore').html('Last Round Score: <b>'+roundScore+'</b>');
+            $('.totalScore').html('Total Score: <b>'+totalScore+'</b>');
+
+            var img = document.getElementById('image');
+            img.src = "";
+
+            // Reload maps to refresh coords
+            svinitialize();
+            mminitialize();
+            rminitialize();
+
+            // Reset Timer
+            resetTimer();
+        } else if (round >= 5){
+          endGame();
+        };
     });
 
     // End of game 'play again' button click
@@ -139,12 +159,15 @@
           points = 0;
         };
 
-        if (round < 5){
+          /*
+        if (round < 3){
 
           endRound();
-        } else if (round >= 5){
+        } else if (round >= 3){
           endGame();
         };
+        */
+          endRound();
 
       } else {
 
@@ -158,17 +181,6 @@
     };
 
     function endRound(){
-      round++
-      if(ranOut==true){
-        roundScore = 0;
-      } else {
-        roundScore = points;
-        totalScore = totalScore + points;
-      }
-
-      $('.round').html('Current Round: <b>'+round+'/5</b>');
-      $('.roundScore').html('Last Round Score: <b>'+roundScore+'</b>');
-      $('.totalScore').html('Total Score: <b>'+totalScore+'</b>');
 
       // If distance is undefined, that means they ran out of time and didn't click the guess button
       if(typeof distance === 'undefined' || ranOut == true){
@@ -199,6 +211,7 @@
       // Reset Params
       window.guessLatLng = '';
       ranOut = false;
+
 
     };
 
