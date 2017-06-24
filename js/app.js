@@ -68,10 +68,7 @@ $(document).ready(function() {
             // Reload maps to refresh coords
             svinitialize();
             guess2.setLatLng({lat: -999, lng: -999});
-            //mminitialize();
-            //rminitialize();
-            guess.setLatLng(window.guessLatLng);
-            actual.setLatLng(window.actualLatLng);
+            mymap.setView([30, 10], 1);
 
             // Reset Timer
             resetTimer();
@@ -170,14 +167,6 @@ $(document).ready(function() {
 
             roundScore = points;
 
-            /*
-        if (round < 3){
-
-          endRound();
-        } else if (round >= 3){
-          endGame();
-        };
-        */
             endRound();
 
         } else {
@@ -187,7 +176,6 @@ $(document).ready(function() {
         }
 
         timer();
-        //window.guessLatLng = '';
 
     };
 
@@ -220,9 +208,7 @@ $(document).ready(function() {
         };
 
         // Reset Params
-        //window.guessLatLng = '';
         ranOut = false;
-
 
     };
 

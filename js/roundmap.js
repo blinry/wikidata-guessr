@@ -3,12 +3,12 @@
 //
 
 function rminitialize() {
-    var mymap = L.map("roundMap").setView([30, 10], 1);
+    roundmap = L.map("roundMap").setView([30, 10], 1);
 
     L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
         maxZoom: 18
-    }).addTo(mymap);
+    }).addTo(roundmap);
 
     var guessIcon = L.icon({
         iconUrl: "img/guess.png",
@@ -22,12 +22,15 @@ function rminitialize() {
 
     guess = L.marker([-999, -999], {
         icon: guessIcon
-    }).addTo(mymap)
+    }).addTo(roundmap)
 
     actual = L.marker([-999, -999], {
         icon: actualIcon
-    }).addTo(mymap)
+    }).addTo(roundmap)
 
     guess.setLatLng(window.guessLatLng);
     actual.setLatLng(window.actualLatLng);
+    roundmap.fitBounds(L.latLngBounds(guess.getLatLng(), actual.getLatLng()), {
+        padding: [50, 50]
+    });
 };
