@@ -1,6 +1,6 @@
 function svinitialize() {
     const query = `
-    SELECT ?item ?itemLabel ?lat ?lon ?photo WHERE { 
+    SELECT ?item ?itemLabel ?itemDescription ?lat ?lon ?photo WHERE { 
         { 
             SELECT ?item ?photo ?lat ?lon 
             WHERE { 
@@ -31,6 +31,7 @@ function svinitialize() {
                     img.src = place.photo.value;
                     window.locLL = place.lat.value + "," + place.lon.value;
                     window.locName = place.itemLabel.value;
+                    window.locDescription = place.itemDescription.value;
                     window.locID = place.item.value;
                 });
             }
