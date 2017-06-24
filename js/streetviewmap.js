@@ -11,7 +11,7 @@ SELECT ?item ?itemLabel ?lat ?lon ?photo WHERE {
       ?coords wikibase:geoLongitude ?lon . 
     } LIMIT 1000
   } 
- SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } 
+ SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de". } 
 } 
     `;
     const url = `https://query.wikidata.org/bigdata/namespace/wdq/sparql?format=json&query=${query}`;
