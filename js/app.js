@@ -159,6 +159,8 @@
           points = 0;
         };
 
+          roundScore = points;
+
           /*
         if (round < 3){
 
