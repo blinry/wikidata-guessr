@@ -211,7 +211,7 @@ $(document).ready(function() {
                         ?statement psv:P625 ?coords . 
                         ?coords wikibase:geoLatitude ?lat . 
                         ?coords wikibase:geoLongitude ?lon . 
-                } LIMIT 1000
+                } OFFSET ${Math.floor(Math.random()*2000)} LIMIT 1
             } 
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de". } 
         } 
@@ -225,8 +225,7 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function (data) {
-                        var i = Math.floor(Math.random()*1000)
-                        var place = data.results.bindings[i];
+                        var place = data.results.bindings[0];
 
                         var img = document.getElementById('image');
                         img.src = place.photo.value;
