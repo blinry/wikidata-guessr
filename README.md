@@ -1,6 +1,9 @@
-whereami
-========
+Wikidata Guessr
+===============
 
-Idea based off of geoguessr.
+Guess the locations of random Wikidata items with a photo and a coordinate!
 
-Please get your own google maps API when you start toying around with it.  Google tracks the amount of API hits ... so please get your own :)
+Based on [whereami](https://github.com/webdevbrian/whereami), a GeoGuessr reimplementation by [Brian Kinney](http://www.thebriankinney.com/).
+
+License: GPLv3+
+===============
