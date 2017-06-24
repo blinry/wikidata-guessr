@@ -134,36 +134,9 @@ $(document).ready(function() {
                 return (min <= x && x <= max);
             };
 
-            // Real basic point thresholds depending on kilometer distances
-            if(inRange(distance, 1, 2)) {
-                points = 10000;
-            } else if(inRange(distance, 3, 10)) {
-                points = 7000;
-            } else if(inRange(distance, 11, 50)) {
-                points = 4000;
-            } else if(inRange(distance, 51, 200)) {
-                points = 3000;
-            } else if(inRange(distance, 201, 500)) {
-                points = 2000;
-            } else if(inRange(distance, 501, 800)) {
-                points = 1000;
-            } else if(inRange(distance, 801, 1300)) {
-                points = 500;
-            } else if(inRange(distance, 1301, 1600)) {
-                points = 400;
-            } else if(inRange(distance, 1601, 2300)) {
-                points = 300;
-            } else if(inRange(distance, 2301, 2800)) {
-                points = 200;
-            } else if(inRange(distance, 2801, 3200)) {
-                points = 100;
-            } else if(inRange(distance, 3200, 4500)) {
-                points = 50;
-            } else if(inRange(distance, 4501, 6000)) {
-                points = 25;
-            } else {
-                points = 0;
-            };
+            var earthCircumference = 40075.16;
+            var x = 2.00151 - (distance/(earthCircumference/4));
+            points = Math.round(2100 * ((1 / (1 + Math.exp(-4 * x + 5.2))) + (1 / (Math.exp(-8 * x + 17.5))) + (1 / (Math.exp(-30 * x + 61.2))) + (500 / (Math.exp(-250 * x + 506.7)))));
 
             roundScore = points;
 
