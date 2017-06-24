@@ -3,43 +3,20 @@
 //
 
 function mminitialize() {
+    mymap = L.map("miniMap");
 
-    var guessMarker;
+    mymap.setView([30, 10], 1);
 
-    // Mini map setup
-    var mapOptions = {
-        center: new google.maps.LatLng(0, 0, true),
-        zoom: 1,
-        mapTypeControl: false,
-        streetViewControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    };
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        maxZoom: 18
+    }).addTo(mymap);
 
-    var mMap = new google.maps.Map(document.getElementById('miniMap'), mapOptions);
+    guess2 = L.marker([-999, -999]).addTo(mymap);
+    guess2.setLatLng({lat: -999, lng: -999});
 
-    // Marker selection setup
-    var guessMarkerOptions = new google.maps.Marker({
-        map: mMap,
-        visible: true,
-        title: 'Your guess',
-        draggable: false
-        //icon: '/img/googleMapsMarkers/red_MarkerB.png'
-    });
-
-    // Mini map marker setup
-    function setGuessMarker(guess) {
-        if (guessMarker) {
-            guessMarker.setPosition(guess);
-        } else {
-            guessMarker = new google.maps.Marker(guessMarkerOptions);
-            guessMarker.setPosition(guess);
-        };
-    };
-
-    // Mini map click
-    google.maps.event.addListener(mMap, 'click', function(event) {
-        window.guessLatLng = event.latLng;
-        setGuessMarker(window.guessLatLng);
-    });
-
+    mymap.on("click", function(e) {
+        guess2.setLatLng(e.latlng);
+        window.guessLatLng = e.latlng;
+    })
 };

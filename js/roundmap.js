@@ -3,40 +3,31 @@
 //
 
 function rminitialize() {
-    console.log('End of round called');
+    var mymap = L.map("roundMap").setView([30, 10], 1);
 
-    //
-    // If locLatLongs or guessLatLongs are undefined, they didn't make a guess and there is no
-    // round map for people who run out of time, so don't show it at all
-    //
-    var currentLLArr = locLatLongs.replace(/[\])}[{(]/g,'').split(',');
-    var GuessLLArr = guessLatLongs.replace(/[\])}[{(]/g,'').replace(/\s/g, "").split(',');
-    var actualLtLng = new google.maps.LatLng(currentLLArr[0],currentLLArr[1]);
-    var guessLtLng = new google.maps.LatLng(GuessLLArr[0],GuessLLArr[1]);
+    L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: 'Map data © <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+        maxZoom: 18
+    }).addTo(mymap);
 
-    var mapOptions = {
-        zoom: 2,
-        center: actualLtLng,
-        mapTypeControl: false,
-        streetViewControl: false,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    }
-    var map = new google.maps.Map($('#roundMap')[0], mapOptions);
-
-    var actualMarker = new google.maps.Marker({
-        position: actualLtLng,
-        title:"Actual Location",
-        icon: 'img/actual.png'
+    var guessIcon = L.icon({
+        iconUrl: "img/guess.png",
+        iconAnchor: [45, 90]
     });
 
-    var guessMarker = new google.maps.Marker({
-        position: guessLtLng,
-        title:"Your Guess",
-        icon: 'img/guess.png'
+    var actualIcon = L.icon({
+        iconUrl: "img/actual.png",
+        iconAnchor: [45, 90]
     });
 
-    // To add the marker to the map, call setMap();
-    actualMarker.setMap(map);
-    guessMarker.setMap(map);
+    guess = L.marker([-999, -999], {
+        icon: guessIcon
+    }).addTo(mymap)
 
+    actual = L.marker([-999, -999], {
+        icon: actualIcon
+    }).addTo(mymap)
+
+    guess.setLatLng(window.guessLatLng);
+    actual.setLatLng(window.actualLatLng);
 };

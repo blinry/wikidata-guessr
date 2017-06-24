@@ -89,8 +89,7 @@ html, body {
 
 #roundEnd #roundMap {
     width: 400px;
-    height: 200px;
-    background: red;
+    height: 300px;
     margin: 20px 0;
 }
 
@@ -115,4 +114,14 @@ html, body {
     text-align: center;
     display: none;
     z-index: 1000;
+}
+
+/* Change cursor when mousing over clickable layer */
+.leaflet-clickable {
+  cursor: default !important;
+}
+
+/* Change cursor when over entire map */
+.leaflet-container {
+    cursor: default !important;
 }
