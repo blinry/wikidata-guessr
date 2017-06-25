@@ -239,9 +239,13 @@ $(document).ready(function() {
                         var img = document.getElementById('image');
                         img.src = place.photo.value;
                         window.actualLatLng = {lat: place.lat.value, lon: place.lon.value};
-                        window.locName = place.itemLabel.value;
-                        window.locDescription = place.itemDescription.value;
                         window.locID = place.item.value;
+                        window.locName = place.itemLabel.value;
+                        if (place.itemDescription) {
+                            window.locDescription = place.itemDescription.value;
+                        } else {
+                            window.locDescription = "(no description available)";
+                        }
                     });
                 }
             )
