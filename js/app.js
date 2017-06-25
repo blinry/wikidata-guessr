@@ -201,6 +201,13 @@ $(document).ready(function() {
     }
 
     function svinitialize() {
+        var params = window.location.search.substr(1);
+        if (params && params.match(/^Q\d+$/)) {
+            var restriction = "?item wdt:P31 wd:"+params+".";
+        } else {
+            var restriction = "";
+        }
+
         const query = `
         SELECT ?item ?itemLabel ?itemDescription ?lat ?lon ?photo WHERE { 
             { 
@@ -211,7 +218,8 @@ $(document).ready(function() {
                         ?statement psv:P625 ?coords . 
                         ?coords wikibase:geoLatitude ?lat . 
                         ?coords wikibase:geoLongitude ?lon . 
-                } OFFSET ${Math.floor(Math.random()*2000)} LIMIT 1
+                        ${restriction} 
+                } LIMIT 1000
             } 
             SERVICE wikibase:label { bd:serviceParam wikibase:language "en,de". } 
         } 
@@ -225,7 +233,8 @@ $(document).ready(function() {
                         return;
                     }
                     response.json().then(function (data) {
-                        var place = data.results.bindings[0];
+                        var i = Math.floor(Math.random()*data.results.bindings.length)
+                        var place = data.results.bindings[i];
 
                         var img = document.getElementById('image');
                         img.src = place.photo.value;
