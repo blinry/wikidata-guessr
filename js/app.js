@@ -24,6 +24,13 @@ $(document).ready(function() {
     // Init Timer
     resetTimer();
 
+    var mode = document.getElementById("mode");
+    mode.onchange = function() {
+        var value = mode.options[mode.selectedIndex].value;
+        console.log(value);
+        document.location.search = value;
+    }
+
     // Timer
     function timer() {
         count = count-1;
@@ -176,7 +183,7 @@ $(document).ready(function() {
             points = 0;
 
         } else {
-            $('#roundEnd').html('<p>Your guess was<br/><strong><h1>'+distance+'</strong>km</h1> away from the actual location,<br/><a href="'+window.locID+'">'+window.locName+'</a>,<br/>'+window.locDescription+'.<br/><div id="roundMap"></div><br/> You have scored<br/><h1>'+roundScore+' points</h1> this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
+            $('#roundEnd').html('<p>Your guess was<br/><strong><h1>'+distance+'</strong>km</h1> away from the actual location,<br/><h2><a href="'+window.locID+'">'+window.locName+'</a>' + (window.locDescription ? ', '+window.locDescription : '' ) + '.</h2><div id="roundMap"></div><br/> You have scored<br/><h1>'+roundScore+' points</h1> this round!<br/><br/><button class="btn btn-primary closeBtn" type="button">Continue</button></p></p>');
             $('#roundEnd').fadeIn();
         };
 
@@ -244,7 +251,7 @@ $(document).ready(function() {
                         if (place.itemDescription) {
                             window.locDescription = place.itemDescription.value;
                         } else {
-                            window.locDescription = "(no description available)";
+                            window.locDescription = undefined;
                         }
                     });
                 }
